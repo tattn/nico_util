@@ -7,6 +7,7 @@ Utility API for niconico (<http://www.nicovideo.jp>)
 * Sign in to niconico
 * Get comments of video
 * Get comments of live
+* Get comments of illust
 
 ## Install
 
@@ -36,7 +37,7 @@ pass = 'password'
 # login
 nico = NicoUtil::login email, pass
 
-# get and show comments of a video
+# get comments of a video
 comments = nico.video('sm1097445').comments
 comments.each do |comment|
   p comment
@@ -53,6 +54,18 @@ nico.live('lv242616226').connect do |status, data|
     puts 'disconnect'
   end
 end
+
+# get illust
+illust = nico.illust('im3768140')
+
+# get comments of a illust
+p illust.comments
+
+# get raw url of a illust
+p illust.image_url
+
+# download and save a illust
+illust.save 'img.jpg'
 ```
 
 ## Contributing

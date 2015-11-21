@@ -3,12 +3,6 @@ require 'net/http'
 require 'openssl'
 require 'rexml/document'
 
-# ニコ動コメント取得
-# https://blog.nanoway.net/web/nicovideo-comment-api
-
-# ニコ生コメント取得
-# http://pita.s374.xrea.com/cms/75/
-
 module NicoUtil
   def self.login email, pass
     Niconico.new email, pass
@@ -16,6 +10,7 @@ module NicoUtil
 
   class Niconico
     class AuthenticationError < StandardError; end
+    class InvalidIDError < StandardError; end
 
     def initialize email, pass
       @cookie = nil
@@ -70,4 +65,5 @@ end
 
 require_relative 'video.rb'
 require_relative 'live.rb'
+require_relative 'illust.rb'
 

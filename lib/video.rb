@@ -7,6 +7,7 @@ class NicoUtil::Niconico
     def initialize owner, video_id
       @owner = owner
       @id = video_id
+      flv_info
     end
 
     def flv_info
@@ -21,6 +22,10 @@ class NicoUtil::Niconico
         request = Net::HTTP::Get.new(path)
         request['cookie'] = @owner.cookie
         http.request(request)
+      end
+
+      if response.body[0..4] == 'error'
+        raise InvalidIDError, 'Invalid video id'
       end
 
       flv_info = {}
@@ -39,7 +44,7 @@ class NicoUtil::Niconico
       info = flv_info()
       uri = URI.parse info[:ms]
 
-      response = Net::HTTP.new(uri.host).start { |http|
+      response = Net::HTTP.new(uri.host).start do |http|
         request = Net::HTTP::Post.new(uri.path)
         thread_id = info[:thread_id]
         version = '20061206'   # 20090904
@@ -53,7 +58,7 @@ class NicoUtil::Niconico
 <thread thread='#{thread_id}' version='#{version}' res_from='-#{limit_max}' fork='#{frk}'/>
 </packet>"
         http.request(request)
-      }
+      end
 
       comments = []
       xml = response.body.gsub('</chat>', "</chat>\n")

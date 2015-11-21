@@ -7,6 +7,7 @@ class NicoUtil::Niconico
     def initialize owner, live_id
       @owner = owner
       @id = live_id
+      playerstatus
     end
 
     def playerstatus
@@ -24,6 +25,11 @@ class NicoUtil::Niconico
       playerstatus = {}
       body = response.body.force_encoding('utf-8')
       doc = REXML::Document.new(body).elements['getplayerstatus']
+
+      if doc.attributes["status"] == 'fail'
+        raise InvalidIDError, doc.elements['error/code'].text
+      end
+
       # stream = doc.elements['stream']
       # title = stream.elements['title'].text
       # desc = stream.elements['description'].text
