@@ -8,6 +8,7 @@ Utility API for niconico (<http://www.nicovideo.jp>)
 * Get comments of video
 * Get comments of live
 * Get comments of illust
+* Download a illust
 
 ## Install
 
