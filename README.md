@@ -4,6 +4,7 @@ Utility API for niconico (<http://www.nicovideo.jp>)
 
 ## Features
 
+* Use official search API easily
 * Sign in to niconico
 * Get comments of video
 * Get comments of live
@@ -30,6 +31,13 @@ $ gem install nico_util
 
 ```ruby
 require 'nico_util'
+
+# Official Search API
+# See <http://search.nicovideo.jp/docs/api/search.html> for parameters.
+p NicoUtil::Video.search 'ボカロ'
+p NicoUtil::Illust.search '東方', 'filters[viewCounter][gte]': 10000, _limit: 3
+p NicoUtil::Live.search 'ゲーム'
+
 
 # write your account of niconico
 email = 'niconico@example.com'

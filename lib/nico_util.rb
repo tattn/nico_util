@@ -63,7 +63,8 @@ module NicoUtil
   end
 end
 
-require_relative 'video.rb'
-require_relative 'live.rb'
-require_relative 'illust.rb'
+require_relative 'nico_util/service.rb'
+require_relative 'nico_util/video.rb'
+require_relative 'nico_util/live.rb'
+require_relative 'nico_util/illust.rb'
 

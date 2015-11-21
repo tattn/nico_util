@@ -1,6 +1,8 @@
-class NicoUtil::Niconico
-  def live live_id
-    Live.new self, live_id
+module NicoUtil
+  class Niconico
+    def live live_id
+      Live.new self, live_id
+    end
   end
 
   class Live
@@ -8,6 +10,14 @@ class NicoUtil::Niconico
       @owner = owner
       @id = live_id
       playerstatus
+    end
+
+    def url
+      "http://live.nicovideo.jp/watch/#{@id}"
+    end
+
+    def self.search query, params={}
+      Service.search 'live', query, params
     end
 
     def playerstatus

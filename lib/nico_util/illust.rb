@@ -1,8 +1,10 @@
 require 'json'
 
-class NicoUtil::Niconico
-  def illust illust_id
-    Illust.new self, illust_id
+module NicoUtil
+  class Niconico
+    def illust illust_id
+      Illust.new self, illust_id
+    end
   end
 
   class Illust
@@ -13,6 +15,14 @@ class NicoUtil::Niconico
       else
         @id = illust_id
       end
+    end
+
+    def url
+      "http://seiga.nicovideo.jp/seiga/im#{@id}"
+    end
+    
+    def self.search query, params={}
+      Service.search 'illust', query, params
     end
 
     def comments

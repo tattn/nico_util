@@ -1,13 +1,23 @@
-class NicoUtil::Niconico
-  def video video_id
-    Video.new self, video_id
+module NicoUtil
+  class Niconico
+    def video video_id
+      Video.new self, video_id
+    end
   end
 
-  class Video
+  class Video < Service
     def initialize owner, video_id
       @owner = owner
       @id = video_id
       flv_info
+    end
+
+    def url
+      "http://www.nicovideo.jp/watch/#{@id}"
+    end
+    
+    def self.search query, params={}
+      Service.search 'video', query, params
     end
 
     def flv_info
