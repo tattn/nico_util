@@ -1,6 +1,6 @@
 # NicoUtil
 
-Utility APIs for niconico (<http://www.nicovideo.jp>)
+Utility API for niconico (<http://www.nicovideo.jp>)
 
 ## Features
 
@@ -13,7 +13,7 @@ Utility APIs for niconico (<http://www.nicovideo.jp>)
 Add the following line to Gemfile:
 
 ```
-gem 'nico-util', github: "tattn/nico-util"
+gem 'nico_util'
 ```
 
 and run `bundle install` from your shell.
@@ -21,14 +21,13 @@ and run `bundle install` from your shell.
 Or do the following:
 
 ```
-$ gem install specific_install
-$ gem specific_install -l 'git://github.com/tattn/nico-util.git'
+$ gem install nico_util
 ```
 
 ## Usage
 
 ```ruby
-require 'nico-util'
+require 'nico_util'
 
 # write your account of niconico
 email = 'niconico@example.com'
