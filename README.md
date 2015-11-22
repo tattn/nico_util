@@ -9,7 +9,7 @@ Utility API for niconico (<http://www.nicovideo.jp>)
 * Get comments of video
 * Get comments of live
 * Get comments of illust
-* Download a illust
+* Download an illust
 
 ## Install
 
@@ -37,6 +37,11 @@ require 'nico_util'
 p NicoUtil::Video.search 'ボカロ'
 p NicoUtil::Illust.search '東方', 'filters[viewCounter][gte]': 10000, _limit: 3
 p NicoUtil::Live.search 'ゲーム'
+p NicoUtil::Blog.search '音楽'
+p NicoUtil::Book.search 'らき☆すた'
+p NicoUtil::Channel.search '歌ってみた'
+p NicoUtil::Comic.search 'ラブコメ'
+p NicoUtil::News.search 'アニメ'
 
 
 # write your account of niconico
@@ -64,16 +69,16 @@ nico.live('lv242616226').connect do |status, data|
   end
 end
 
-# get illust
+# get an illust
 illust = nico.illust('im3768140')
 
-# get comments of a illust
+# get comments of an illust
 p illust.comments
 
-# get raw url of a illust
+# get raw url of an illust
 p illust.image_url
 
-# download and save a illust
+# download and save an illust
 illust.save 'img.jpg'
 ```
 
