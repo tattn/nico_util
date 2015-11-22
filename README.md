@@ -31,8 +31,10 @@ $ gem install nico_util
 
 ```ruby
 require 'nico_util'
+```
 
-# Official Search API
+### Official Search API
+```ruby
 # See <http://search.nicovideo.jp/docs/api/search.html> for parameters.
 p NicoUtil::Video.search 'ボカロ'
 p NicoUtil::Illust.search '東方', 'filters[viewCounter][gte]': 10000, _limit: 3
@@ -42,21 +44,29 @@ p NicoUtil::Book.search 'らき☆すた'
 p NicoUtil::Channel.search '歌ってみた'
 p NicoUtil::Comic.search 'ラブコメ'
 p NicoUtil::News.search 'アニメ'
+```
 
-
+### Sign in
+```ruby
 # write your account of niconico
 email = 'niconico@example.com'
 pass = 'password'
 
 # login
 nico = NicoUtil::login email, pass
+```
 
+### Video
+```ruby
 # get comments of a video
 comments = nico.video('sm1097445').comments
 comments.each do |comment|
   p comment
 end
+```
 
+### Live
+```ruby
 # connect to a live and show data
 nico.live('lv242616226').connect do |status, data|
   case status
@@ -68,7 +78,10 @@ nico.live('lv242616226').connect do |status, data|
     puts 'disconnect'
   end
 end
+```
 
+### Illust
+```ruby
 # get an illust
 illust = nico.illust('im3768140')
 
