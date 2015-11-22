@@ -73,4 +73,3 @@ require_relative 'nico_util/channel.rb'
 require_relative 'nico_util/blog.rb'
 require_relative 'nico_util/news.rb'
 
-p NicoUtil::Book.search 'らき☆すた'
