@@ -92,7 +92,7 @@ p illust.comments
 p illust.image_url
 
 # download and save an illust
-illust.save 'img.jpg'
+illust.save '/path/to/image'  # => /path/to/image.jpg
 ```
 
 ## Contributing
