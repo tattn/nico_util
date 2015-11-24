@@ -8,6 +8,8 @@ module NicoUtil
   end
 
   class Illust
+    class InvalidImageError < StandardError; end
+
     def initialize owner, illust_id
       @owner = owner
       if illust_id[0..1] == 'im'
@@ -77,8 +79,40 @@ module NicoUtil
     end
 
     def save filename
-      #TODO: identify filetype [png, jpg, gif]
-      File.write(filename, download)
+      data = download
+      check = check_image data
+      if check[1] == :damaged 
+        raise InvalidImageError, "Downloaded image was broken. The filetype was #{check[0]}."
+      elsif check[0] == :unknown
+        raise InvalidImageError, "The filetype of downloaded image was unknown."
+      end
+      filename = Pathname(filename).sub_ext('.'+check[0].to_s).to_s
+      File.binwrite(filename, data)
+    end
+
+    private
+
+    def check_image data
+      result = [ :unknown, :clean ]  
+      begin
+        header = data[0, 8]
+        footer = data[data.length-12, 12]
+      rescue
+        result[1] = :damaged
+        return result
+      end
+
+      if header[0,2].unpack("H*") == [ "ffd8" ]
+        result[0] = :jpg
+        result[1] = :damaged unless footer[-2,2].unpack("H*") == [ "ffd9" ]
+      elsif header[0,3].unpack("A*") == [ "GIF" ]
+        result[0] = :gif
+        result[1] = :damaged unless footer[-1,1].unpack("H*") == [ "3b" ]
+      elsif header[0,8].unpack("H*") == [ "89504e470d0a1a0a" ]
+        result[0] = :png
+        result[1] = :damaged unless footer[-12,12].unpack("H*") == [ "0000000049454e44ae426082" ]
+      end
+      result
     end
   end
 end
